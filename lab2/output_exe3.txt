@@ -1,0 +1,29 @@
+Test Outputs:
+
+?- execute([x=3], 
+|        seq(set(y,num(1)),      
+|            while(id(x) > num(1),   
+|                seq(set(y, id(y) * id(x)),
+|                    set(x, id(x) - num(1))))), SN).
+SN = [x=1, y=6] ;     
+false. 
+
+?- execute([x=4], 
+|		seq(set(y,num(1)),
+|			while(id(x) > num(1),
+|				seq(set(y, id(y) * id(x)),
+|				if(id(y)==num(4),
+|					set(y,id(y)*num(2)),
+|				set(x, id(x) - num(1)))))),SN).                            
+SN = [x=1, y=192] ;
+false.
+
+?- execute([x=3], 
+|		seq(set(y,num(1)),
+|			while(id(x) > num(1),
+|				seq(set(y, id(y) * id(x)),
+|				if(id(y)==num(4),
+|					set(y,id(y)*num(2)),
+|				set(x, id(x) - num(1)))))),SN).                            
+SN = [x=1, y=6] ;
+false.

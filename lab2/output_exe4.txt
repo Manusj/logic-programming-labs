@@ -1,0 +1,58 @@
+Test Outputs:
+
+?- union([b,f,g,t,w,y],[a,c,x,z],RES).
+RES = [a, b, c, f, g, t, w, x, y|...] ;
+false. 
+
+?- union([b,f,g,t,w,y],[a,c,x,z],RES),write_ln(RES).                           
+[a,b,c,f,g,t,w,x,y,z]                      
+RES = [a, b, c, f, g, t, w, x, y|...] ;               
+false.                                                                         
+
+?- union([b,f,g,t,w,y],[a,c,e,f,g,h,x,z],RES),write_ln(RES).                    
+[a,b,c,e,f,g,h,t,w,x,y,z]                                                      
+RES = [a, b, c, e, f, g, h, t, w|...] ;                                        
+false.                                                                         
+
+?- union([b,f,g,t,w,y],[c,e,f,g,h,x],RES),write_ln(RES).                       
+[b,c,e,f,g,h,t,w,x,y]
+RES = [b, c, e, f, g, h, t, w, x|...] ;
+false.  
+
+?- union([b,f,g,t,w,y],[c,e,f,x],RES),write_ln(RES).                           
+[b,c,e,f,g,t,w,x,y]         
+RES = [b, c, e, f, g, t, w, x, y] ;
+false.    
+
+?- union([b,f,g,t,w,y],[b,c,e,g,f,x],RES),write_ln(RES).                        
+[b,c,e,f,g,f,t,w,x,y]
+RES = [b, c, e, f, g, f, t, w, x|...] ;
+false.  
+
+?- intersection([a,b,w,x,z],[b,c,g,x],RES),write_ln(RES).                      
+[b,x]                         
+RES = [b, x] ;
+false.
+
+?- intersection([a,b,w,x,z],[a,b,c,g,x,z],RES),write_ln(RES).                   
+[a,b,x,z]                                                                      
+RES = [a, b, x, z] ;                                                           
+[a,b,x,z]                                                                      
+RES = [a, b, x, z] ;                                                           
+[a,b,x,z]                                                                      
+RES = [a, b, x, z] ;
+false.
+
+?- intersection([a,b,w,x,z],[e,f,h,t,y],RES),write_ln(RES).                     
+[]
+RES = [] ;
+false.
+
+?- powerset([a],RES).                                                          
+RES = [[], [a]].
+
+?- powerset([a,b,c],RES).
+RES = [[], [a], [a, b], [a, b, c], [a, c], [b], [b, c], [c]].
+
+?- powerset([],RES).
+RES = [[]].

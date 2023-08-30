@@ -1,0 +1,14 @@
+included(X) :- node(X), not excluded(X).
+excluded(X) :- node(X), not included(X).
+equal(X,X) :- node(X).
+three_or_more :-
+    included(X),
+    included(Y),
+    included(Z),
+    not equal(X, Y),
+    not equal(Y, Z),
+    not equal(X, Z).
+:- not three_or_more.
+
+% test part states that if X and Y are included and X not equal to Y and there is no edge from X to Y then we have a falsity. This helps the stable model contain only cliques.
+:- included(X), included(Y), not equal(X,Y), not edge(X,Y). 

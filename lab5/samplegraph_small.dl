@@ -1,0 +1,35 @@
+%examplegraph_large.dl: the provided graph contains 2 cliques of size 3.
+
+%The edge relation is symmetric.
+edge(X,Y) :- edge0(X,Y).
+edge(X,Y) :- edge0(Y,X).
+
+%X is a node if there exists an edge from X to another node. This does not work with isolated nodes.
+node(X) :- edge(X,_).
+
+
+%The rest of the graph is specified with a set of edge0/2 facts.
+edge0(a, b).
+edge0(a, c).
+edge0(b, c).
+edge0(c, d).
+edge0(c, e).
+edge0(e, f).
+edge0(d, f).
+edge0(d, h).
+edge0(e, g).
+edge0(f, g).
+
+included(X) :- node(X), not excluded(X).
+excluded(X) :- node(X), not included(X).
+equal(X,X) :- node(X).
+three_or_more :-
+    included(X),
+    included(Y),
+    included(Z),
+    not equal(X, Y),
+    not equal(Y, Z),
+    not equal(X, Z).
+:- not three_or_more.
+
+:- included(X), included(Y), not equal(X,Y), not edge(X,Y). 

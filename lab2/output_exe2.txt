@@ -1,0 +1,130 @@
+******
+Case 1
+******
+
+Consider the program
+
+middle(X, [X]).
+middle(X, [First|Xs]) :-
+   append(Middle, [Last], Xs),
+   middle(X, Middle).
+
+The result of the queries are:
+
+?- middle(X, [a,b,c]).
+X = b ;                                                                        
+false.  
+
+The reason for the above result is because when this query is excecuted it unifies with the second rule. Which then recursively calls middle again causing that call to unify with rule 1 and finially which in turn unifies X with b. On all braches the query fails as the first rule will be false
+
+?- middle(a, X).
+X = [a] ;                                                                      
+X = [_, a, _] ;                                                                
+X = [_, _, a, _, _] ;                                                          
+X = [_, _, _, a, _, _, _] ;                                                    
+X = [_, _, _, _, a, _, _, _, _] ;                                              
+X = [_, _, _, _, _, a, _, _, _|...] ;                                          
+X = [_, _, _, _, _, _, a, _, _|...] ;                                          
+X = [_, _, _, _, _, _, _, a, _|...] .  
+
+The reason for the above result is because when this query is excecuted it unifies with the first rule. At the first result is obatin when as it unifies immediatly with the first rule on backtracking it excecute the secound rule which in turn has a call to middle this again unify with the first rule causing the new middle also to be 'a' and this continues.
+
+
+******
+Case 2
+******
+
+Consider the program,
+
+middle(X, [X]).
+middle(X, [First|Xs]) :-
+   middle(X, Middle),
+   append(Middle, [Last], Xs).
+
+The result of the queries are:
+
+?- middle(X, [a,b,c]).
+X = b ;
+The query proceeds to excecute infinitly
+
+The reason for the above result is because when this query is excecuted it unifies with the second rule. Which then recursively calls middle again causing that call to unify with rule 1 and finially which in turn unifies X with b. On backtracking it causes rule 2 to be excecuted infinitly as the term middle get replaced by a list.
+
+?- middle(a, X). 
+X = [a] ;
+X = [_, a, _] ;
+X = [_, _, a, _, _] ;
+X = [_, _, _, a, _, _, _] ;
+X = [_, _, _, _, a, _, _, _, _] ;
+X = [_, _, _, _, _, a, _, _, _|...] ;
+X = [_, _, _, _, _, _, a, _, _|...] 
+
+The reason for the above result is because when this query is excecuted it unifies with the first rule. The reson for the result is same as the reson given above. Even with the changes it would behave in a almost similar manner. This query does not result in infinitie loop since the main unification is done with the first rule. It causes the same result due to 
+
+******
+Case 3
+******
+
+Consider the program
+
+middle(X, [First|Xs]) :-
+   append(Middle, [Last], Xs),
+   middle(X, Middle).
+middle(X, [X]).
+
+The result of the queries are:
+
+?- middle(X, [a,b,c]).
+X = b ;                      
+false.  
+
+The reason for the above result is similar to the reson given for the query in case 1. The only difference is that when search for a rule it finds the recurive rule first and if the terms are unfifable then it is excuted first before the base case. In this query this would not cause much change.                                                                    
+
+?- middle(a, X). 
+X = [_, a, _] ;
+X = [_, _, a, _, _] ;
+X = [_, _, _, a, _, _, _] ;
+X = [_, _, _, _, a, _, _, _, _] ;
+X = [_, _, _, _, _, a, _, _, _|...] ;
+X = [_, _, _, _, _, _, a, _, _|...] ;
+X = [_, _, _, _, _, _, _, a, _|...] ;
+X = [_, _, _, _, _, _, _, _, a|...] ;
+X = [_, _, _, _, _, _, _, _, _|...] ;
+X = [_, _, _, _, _, _, _, _, _|...] .
+
+The reason for the above result is similar to the reson given for the query in case 1. The only difference is that when search for a rule it finds the recurive rule first and if the terms are unfifable then it is excuted first before the base case. In this query this would cause us to loose the result [a].
+
+******
+Case 4
+******
+
+Consider the program
+
+middle(X, [First|Xs]) :-
+   middle(X, Middle),
+   append(Middle, [Last], Xs).
+middle(X, [X]).
+
+The result of the queries are:
+
+?- middle(X, [a,b,c]).
+
+ERROR: Stack limit (1.0Gb) exceeded
+ERROR:   Stack sizes: local: 0.8Gb, global: 0.2Gb, trail: 38.4Mb
+ERROR:   Stack depth: 5,032,642, last-call: 0%, Choice points: 5,032,635
+ERROR:   Possible non-terminating recursion:
+ERROR:     [5,032,642] user:middle(_40272554, _40272556)
+ERROR:     [5,032,641] user:middle(_40272574, [length:1|_40272582])
+   Exception: (5,032,641) middle(_11096, _40272480) ? 
+
+The reason for the above result is because of the fact that this query causes the recursive case to be called infinitly because that is the one that is first encountred and the term of the query unify with the recurive case hence it get called again and again.
+
+?- middle(a, X).                                                               
+ERROR: Stack limit (1.0Gb) exceeded
+ERROR:   Stack sizes: local: 0.8Gb, global: 0.2Gb, trail: 38.4Mb
+ERROR:   Stack depth: 5,032,642, last-call: 0%, Choice points: 5,032,635
+ERROR:   Possible non-terminating recursion:
+ERROR:     [5,032,642] user:middle(a, _40272166)
+ERROR:     [5,032,641] user:middle(a, [length:1|_40272192])
+   Exception: (5,032,641) middle(a, _40272090) ? 
+
+The reason for the above result is also similar to the reson given above this query causes a call to the recurive case since its terms are unifiable and after that it recurive continues to call the recurcive case causing a infinite loop.

@@ -1,0 +1,19 @@
+Test Ouputs:
+
+?- run([x=3],
+|                 "y:=1; z:=0; while x>z do z:=z+1; y:=y*z od",
+|                 Res).
+Res = [x=3, y=6, z=3] ;
+false.
+
+?- run([x=4],"y:=1; z:=0; while x>z do z:=z+1; y:=y*z od", Res).
+Res = [x=4, y=24, z=4] ;
+false.
+
+?- run([x=4],"y:=1; z:=0; if x>z then z:=z+1 else y:=y*z fi", Res). 
+Res = [x=4, y=1, z=1] ;
+false.
+
+?- run([x=4],"y:=1; z:=0; if x<z then z:=z+1 else y:=y*z fi", Res). 
+Res = [x=4, y=0, z=0] ;
+false.

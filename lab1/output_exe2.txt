@@ -1,0 +1,44 @@
+Test Outputs
+
+
+?- path(a,b).
+true .
+
+?- path(a,g).
+true .
+
+?- path(a,h).
+true .
+
+?- path(h,a).
+false.
+
+?- path(b,f).
+true .
+
+?- path(f,a).
+false.
+
+?- path(a,g).
+true .
+
+?- path(a,g,H).
+H = [a, b, c, d, f, g] ;
+H = [a, b, c, e, g] ;
+H = [a, b, c, e, f, g] ;
+H = [a, c, d, f, g] ;
+H = [a, c, e, g] ;
+H = [a, c, e, f, g] ;
+false.
+
+?- path(f,a,H).
+false.
+
+?- npath(a,g,N).
+N = 6 ;
+N = 5 ;
+N = 6 ;
+N = 5 ;
+N = 4 ;
+N = 5 ;
+false.

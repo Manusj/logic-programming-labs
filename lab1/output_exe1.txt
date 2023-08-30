@@ -1,0 +1,34 @@
+1. The answer to the query "Who is happy?" is given below, 
+
+?- happy(X).
+X = nisse ;   
+X = anne ;      
+X = peter ;                                                     
+X = ulrika ;     
+false.   
+
+2. The answer to the query "Who likes whom?" is given below,
+
+?- like(X,Y).
+X = peter,                                                                     
+Y = ulrika ;                                                                   
+X = bosse,                                                                     
+Y = ulrika ;                                                                   
+X = nisse,                                                     
+Y = ulrika ;                                  
+X = peter,                                   
+Y = bosse ;                                   
+X = ulrika,              
+Y = peter ; 
+false.    
+
+3. The answer to the “How many persons like Ulrika?” is given below,
+
+?- findall(X,like(X,ulrika),RES),length(RES,N).
+RES = [peter, bosse, nisse],     
+N = 3.     
+
+4. Explain your choice of the order of the clauses in your program, and the order of premises in the rules.
+
+The clauses in the program were ordered such that facts were always given above rules and rules with recursive cases the rules were always below the base case(the definition of the rule without recursion). This can be seen in the definition of the rule for like(X, Y). Prolog always read the datastore from top to bottom when searching for rules, so having facts and common rules at the begining helps the prlog system to resolve it quickly.
+The premises in the rules were ordered in such a way that the recursive call was always at the end(Tail recursion). This is because such a definition helps also in breaking the recursion when one of the earlier predicates is false. Recursive calls can also be at the beginning of the rule then the base case should be specifically designed to end the recursion which is not possible in the definition of some rules for example (X, Y), so for this specific case to prevent infinite recursion the recursive calls were given at the end of the rule. 

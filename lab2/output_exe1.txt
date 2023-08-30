@@ -1,0 +1,45 @@
+Testing is issorted
+
+?- issorted([1,2,3,4,5]).
+true .                                  
+
+?- issorted([6,22,78,99,1000]).
+true .                                                                         
+
+?- issorted([6,22,78,4,99,1000]).                                               
+false.                                                                         
+
+?- issorted([2]).                                                              
+true .                                                                         
+
+?- issorted([5,3,2,0]).                                                        
+false.   
+
+
+Testing ssort
+
+?- ssort([4,1,6,83,2,8],L).
+L = [1, 2, 4, 6, 8, 83] .                                                     
+
+?- ssort([5,4,3,2,1],L).                                                        
+L = [1, 2, 3, 4, 5] .                                                          
+
+?- ssort([3,2],L).                                                              
+L = [2, 3] .                       
+
+?- ssort([2],L).                                                               
+L = [2] .                   
+
+Testing qsort
+
+?- qsort([4,1,6,83,2,8],L).                                                     
+L = [1, 2, 4, 6, 8, 83] .                    
+
+?- qsort([5,4,3,2,1],L).                                                        
+L = [1, 2, 3, 4, 5] .     
+
+?- qsort([3,2],L).                                                              
+L = [2, 3] .                                                                   
+
+?- qsort([2],L).                                                               
+L = [2] .                                

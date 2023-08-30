@@ -1,0 +1,4 @@
+man(dilbert).
+man(wally).
+bachelor(X) :- man(X), not husband(X).
+husband(X) :- man(X), not bachelor(X).

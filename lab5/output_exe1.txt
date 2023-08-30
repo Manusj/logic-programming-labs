@@ -1,0 +1,20 @@
+*******************
+Ouput Small Problem
+*******************
+
+| ?- schedule(Tasks, Workers, EndTime, Cost).
+Tasks = [task(1,2,3,2,a),task(0,1,1,4,b),task(1,2,3,2,c),task(3,1,4,1,d)],
+Workers = 4,
+EndTime = 4,
+Cost = 16 ? ;
+no
+
+********************
+Output large Problem
+********************
+
+| ?- schedule(Tasks, Workers, EndTime, Cost).
+Tasks = [task(0,2,2,2,aa),task(2,2,4,3,ab),task(6,5,11,5,ac),task(13,2,15,6,ba),task(0,2,2,1,bb),task(0,3,3,3,bc),task(4,2,6,3,ca),task(11,2,13,5,cb),task(3,3,6,2,cc)],
+Workers = 6,
+EndTime = 16,
+Cost = 96 ? 

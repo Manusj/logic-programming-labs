@@ -1,0 +1,87 @@
+
+*******
+Problem 
+*******
+Initial State: [[3,3],[0,0],left]
+Goal State: [[0,0],[3,3],left]
+
+Test Ouput:
+
+****
+BFS
+****
+?- bfs([[3,3],[0,0],left],Path,[[0,0],[3,3],right]),nl,write_ln(Path),nl,length(Path,PathLength).                                       
+                                                                    
+[[[3,3],[0,0],left],[[3,1],[0,2],right],[[3,1],[0,2],left],[[1,1],[2,2],right],[[1,1],[2,2],left],[[0,0],[3,3],right]]
+
+Path = [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[1, 1], [2, 2], left], [[0, 0], [3|...], right]],
+PathLength = 6 ;
+
+[[[3,3],[0,0],left],[[2,2],[1,1],right],[[2,2],[1,1],left],[[0,2],[3,1],right],[[0,2],[3,1],left],[[0,0],[3,3],right]]
+
+Path = [[[3, 3], [0, 0], left], [[2, 2], [1, 1], right], [[2, 2], [1, 1], left], [[0, 2], [3, 1], right], [[0, 2], [3, 1], left], [[0, 0], [3|...], right]],
+PathLength = 6 ;
+
+[[[3,3],[0,0],left],[[2,2],[1,1],right],[[2,2],[1,1],left],[[1,1],[2,2],right],[[1,1],[2,2],left],[[0,0],[3,3],right]]
+
+Path = [[[3, 3], [0, 0], left], [[2, 2], [1, 1], right], [[2, 2], [1, 1], left], [[1, 1], [2, 2], right], [[1, 1], [2, 2], left], [[0, 0], [3|...], right]],
+PathLength = 6 ;
+
+[[[3,3],[0,0],left],[[3,1],[0,2],right],[[3,1],[0,2],left],[[1,1],[2,2],right],[[1,1],[2,2],left],[[0,0],[3,3],right],[[0,0],[3,3],left],[[0,0],[3,3],right]]
+
+Path = [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[1, 1], [2, 2], left], [[0, 0], [3|...], right], [[0|...], [...|...]|...], [[...|...]|...]],
+PathLength = 8 ;
+
+[[[3,3],[0,0],left],[[3,1],[0,2],right],[[3,1],[0,2],left],[[1,1],[2,2],right],[[1,1],[2,2],left],[[0,0],[3,3],right],[[0,2],[3,1],left],[[0,0],[3,3],right]]
+
+Path = [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[1, 1], [2, 2], left], [[0, 0], [3|...], right], [[0|...], [...|...]|...], [[...|...]|...]],
+PathLength = 8 ;
+
+Query to check number of solution path existing in BFS
+
+?- findall(Path,bfs([[3,3],[0,0],left],Path,[[0,0],[3,3],right]),RES ),length(RES,N).                                                    
+RES = [[[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[1, 1], [2|...], left], [[0|...], [...|...]|...]], [[[3, 3], [0, 0], left], [[2, 2], [1, 1], right], [[2, 2], [1, 1], left], [[0, 2], [3|...], right], [[0|...], [...|...]|...], [[...|...]|...]], [[[3, 3], [0, 0], left], [[2, 2], [1, 1], right], [[2, 2], [1|...], left], [[1|...], [...|...]|...], [[...|...]|...], [...|...]], [[[3, 3], [0, 0], left], [[3, 1], [0|...], right], [[3|...], [...|...]|...], [[...|...]|...], [...|...]|...], [[[3, 3], [0|...], left], [[3|...], [...|...]|...], [[...|...]|...], [...|...]|...], [[[3|...], [...|...]|...], [[...|...]|...], [...|...]|...], [[[...|...]|...], [...|...]|...], [[...|...]|...], [...|...]|...],
+N = 135.
+
+****
+DFS
+****
+
+?- dfs([[3,3],[0,0],left],Path,[[0,0],[3,3],right]),nl,write_ln(Path)),nl,length(Path,PathLength).                                        
+
+[[[3,3],[0,0],left],[[3,1],[0,2],right],[[3,1],[0,2],left],[[1,1],[2,2],right],[[1,1],[2,2],left],[0,0],[3,3],right]
+
+Path = [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[1, 1], [2, 2], left], [0, 0], [3, 3], right],
+PathLength = 8 ;
+
+[[[3,3],[0,0],left],[[3,1],[0,2],right],[[3,1],[0,2],left],[[1,1],[2,2],right],[[1,1],[2,2],left],[[0,1],[3,2],right],[[0,3],[3,0],left],[[0,2],[3,1],right],[[0,2],[3,1],left],[0,0],[3,3],right]
+
+Path = [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[1, 1], [2, 2], left], [[0, 1], [3|...], right], [[0|...], [...|...]|...], [[...|...]|...], [...|...]|...],
+PathLength = 12 ;
+
+[[[3,3],[0,0],left],[[3,1],[0,2],right],[[3,1],[0,2],left],[[1,1],[2,2],right],[[1,1],[2,2],left],[[0,1],[3,2],right],[[0,2],[3,1],left],[0,0],[3,3],right]
+
+Path = [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[1, 1], [2, 2], left], [[0, 1], [3|...], right], [[0|...], [...|...]|...], [0|...], [...|...]|...],
+PathLength = 10 ;
+
+[[[3,3],[0,0],left],[[3,1],[0,2],right],[[3,1],[0,2],left],[[1,1],[2,2],right],[[2,2],[1,1],left],[[0,2],[3,1],right],[[0,2],[3,1],left],[0,0],[3,3],right]
+
+Path = [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[2, 2], [1, 1], left], [[0, 2], [3|...], right], [[0|...], [...|...]|...], [0|...], [...|...]|...],
+PathLength = 10 ;
+
+[[[3,3],[0,0],left],[[3,1],[0,2],right],[[3,1],[0,2],left],[[1,1],[2,2],right],[[2,2],[1,1],left],[[0,2],[3,1],right],[[0,2],[3,1],left],[[0,1],[3,2],right],[[1,1],[2,2],left],[0,0],[3,3],right]
+
+Path = [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[2, 2], [1, 1], left], [[0, 2], [3|...], right], [[0|...], [...|...]|...], [[...|...]|...], [...|...]|...],
+PathLength = 12 
+
+
+Query to check number of total number of solution path existing in DFS
+
+?- findall(Path,dfs([[3,3],[0,0],left],Path,[[0,0],[3,3],right]),RES)),length(RES,N).                                                     
+RES = [[[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2, 2], right], [[1, 1], [2|...], left], [0, 0], [3|...], right], [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0, 2], left], [[1, 1], [2|...], right], [[1|...], [...|...]|...], [[...|...]|...], [...|...]|...], [[[3, 3], [0, 0], left], [[3, 1], [0, 2], right], [[3, 1], [0|...], left], [[1|...], [...|...]|...], [[...|...]|...], [...|...]|...], [[[3, 3], [0, 0], left], [[3, 1], [0|...], right], [[3|...], [...|...]|...], [[...|...]|...], [...|...]|...], [[[3, 3], [0|...], left], [[3|...], [...|...]|...], [[...|...]|...], [...|...]|...], [[[3|...], [...|...]|...], [[...|...]|...], [...|...]|...], [[[...|...]|...], [...|...]|...], [[...|...]|...], [...|...]|...],
+N = 45.
+
+Hence DFS has 45 solution paths based on the defined actions, states and problem.
+
+
+It can be seen that for BFS search we get Path with length in the increasing order while for DFS it seem very random. It can also be seen that there seems to be a differnce in the total number of path in DFS and BFS this is because of the differnce in the way in which loop checking is implemented in DFS and BFS. In DFS we have maintained a visited list, while in BFS we are checking if the node repeats in the current path. The more realxed loop checking cause larger number of paths in case of BFS.
